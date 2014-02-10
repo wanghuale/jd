@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<applications xmlns="http://www.wabacus.com"
+					xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+					xsi:schemaLocation="http://www.wabacus.com ../xsd/wabacus.applications.xsd">
+	<page id="baoli_list">
+		<tabpanel id="tp1" titlestyle="2" margin="10px">
+			<report id="report1" title="工年度总利润" parenttitle="横向数据集" type="fusioncharts" width="1000px" 
+				chartstyleproperty="showValues='0'" chartheight="300" chartwidth="1000" chartype="Column3D.swf">
+				<display>
+					<col column="end_time" label="姓名"/>
+					<col column="totalsalary" label="总工资"/>
+				</display>
+				<!--<subdisplay>
+				 <![CDATA[
+					<trendlines>
+						<line startValue='200000' color='00cc00' displayValue='平均值' />   
+					</trendlines>     
+				]]>
+				</subdisplay> -->
+				<sql>
+					<select titlelabelcolumn="end_time">
+						<!-- <value>
+							<![CDATA[SELECT A.no,name,sum(salary) as totalsalary FROM tbl_salary A left join tbl_baseinfo B on A.no=B.no where {#condition#} group by A.no,name order by A.no]]>
+						</value> -->
+						<value>
+							<![CDATA[select sum(profit) as totalsalary, end_time from tab_ticket where del_flag=0 and end_time is not null and  {#condition#} group by end_time]]>
+						</value>
+						<!-- <condition name="txtname" label="姓名">
+							<value>
+								<![CDATA[(endtime =  '%#data#%')]]>
+							</value>
+						</condition> -->
+					</select>
+				</sql>
+			</report>
+		</tabpanel>
+	</page>
+</applications>
